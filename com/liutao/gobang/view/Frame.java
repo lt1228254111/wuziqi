@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  * 五子棋窗口
  */
 public class Frame extends JPanel {
-        private int[][] exist=new int[Config.ROWS][Config.COLUMNS];
+        private int[][] exist=new int[Config.LINE][Config.LINE];
         private ActionListener mouse;
 
         public void showUI(){
@@ -91,13 +91,13 @@ public class Frame extends JPanel {
          * @param g  传入画笔
          */
         public void drawChessTable(Graphics g){
-                for(int r=0;r<Config.ROWS;r++){    			//行           x 不变    y变
+                for(int r=0;r<Config.LINE;r++){    			//行           x 不变    y变
                         g.drawLine(Config.X, Config.Y+r*Config.SIZE,
-                                Config.X+(Config.COLUMNS-1)*Config.SIZE, Config.Y+r*Config.SIZE);
+                                Config.X+(Config.LINE-1)*Config.SIZE, Config.Y+r*Config.SIZE);
                 }
-                for(int c=0;c<Config.COLUMNS;c++){			//列            x变         y不变
+                for(int c=0;c<Config.LINE;c++){			//列            x变         y不变
                         g.drawLine(Config.X+Config.SIZE*c,Config.Y,
-                                Config.X+Config.SIZE*c, Config.Y+(Config.ROWS-1)*Config.SIZE);
+                                Config.X+Config.SIZE*c, Config.Y+(Config.LINE-1)*Config.SIZE);
                 }
         }
         /**
@@ -107,8 +107,8 @@ public class Frame extends JPanel {
         public void reDrawChess(Graphics g){
                 Graphics2D g2d=(Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                for(int  r=0;r<Config.ROWS;r++){			//行
-                        for(int c=0;c<Config.COLUMNS;c++){		//列
+                for(int  r=0;r<Config.LINE;r++){			//行
+                        for(int c=0;c<Config.LINE;c++){		//列
                                 if(exist[r][c]!=0){			//如果该位置不为空
                                         if(exist[r][c]==1){			//该位置是黑子
                                                 g2d.setColor(Color.BLACK);
