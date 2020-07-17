@@ -11,9 +11,9 @@ import java.awt.event.ActionListener;
 /**
  * 五子棋窗口
  */
-public class Frame extends JPanel {
+public class Frame<jp> extends JPanel {
         private int[][] exist=new int[Config.LINE][Config.LINE];
-        private ActionListener mouse;
+        private ChessClick mouse;
 
         public void showUI(){
                 // 窗体对象,JFrame默认是边框布局
@@ -28,15 +28,17 @@ public class Frame extends JPanel {
                 jf.setResizable(false);
                 //设置窗口可见
                 jf.setVisible(true);
+                mouse=new ChessClick(this);
                 //调用面板方法
                 CPanel(jf);
                 EPanel(jf);
+                mouse.setExist(exist);
         }
         /**
          * 面板布局
          */
         public void CPanel(JFrame frame){
-                this.setBackground(Color.white);
+                this.setBackground(Color.yellow);
                 frame.add(this);
         }
         public void EPanel(JFrame frame){
@@ -50,33 +52,14 @@ public class Frame extends JPanel {
                 Dimension di=new Dimension(120,0);
                 jp.setPreferredSize(di);
 
-                //设置按钮
-                JButton jbu1=new javax.swing.JButton("开始游戏");
-                Dimension di1=new Dimension(100,60);
-                jbu1.setPreferredSize(di1);
-                jp.add(jbu1);
-
-                JButton jbu2=new JButton("人机对战");
-                Dimension di2=new Dimension(100,60);
-                jbu2.setPreferredSize(di2);
-                jp.add(jbu2);
-
-                JButton jbu3=new JButton("悔棋");
-                Dimension di3=new Dimension(100,60);
-                jbu3.setPreferredSize(di3);
-                jp.add(jbu3);
-
-                JButton jbu4=new JButton("重新开始");
-                Dimension di4=new Dimension(100,60);
-                jbu4.setPreferredSize(di4);
-                jp.add(jbu4);
-
-                jbu1.addActionListener(mouse);
-                jbu2.addActionListener(mouse);
-                jbu3.addActionListener(mouse);
-                jbu4.addActionListener(mouse);
-
-                frame.add(jp,BorderLayout.EAST);
+                String[] buttonArray={"开始游戏","悔棋","认输"}; //数组存储     功能按钮命令
+                for(int i=0;i<buttonArray.length;i++){			//使用循环实例化按钮对象
+                        JButton button=new JButton(buttonArray[i]); //实例化按钮对象
+                        button.setPreferredSize(new Dimension(100,50));	//设置大小
+                        jp.add(button);							//在面板上添加按钮
+                        button.addActionListener(mouse);				//为每一个按钮添加监听
+                }
+                frame.add(jp,BorderLayout.EAST);		//为窗体(边框布局)添加面板---放置在东侧
         }
         /**
          * 重写面板
